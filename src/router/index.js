@@ -20,6 +20,22 @@ const routes = [
     name: "register",
     component: () => import("../views/Register.vue"),
   },
+  {
+    path: "/authors",
+    name: "authors",
+    component: () => import("../views/Authors.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/books",
+    name: "books",
+    component: () => import("../views/Books.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
 ];
 
 const router = createRouter({

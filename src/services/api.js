@@ -6,6 +6,14 @@ export default class API {
   constructor() {
     this.http = axios;
     this.baseURL = "https://localhost:7126/" || "/";
+    this.token = JSON.parse(localStorage.getItem("token")) || "";
+    this.init();
+  }
+
+  init() {
+    if (this.token) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${this.token}`;
+    }
   }
 
   getUrl(url = "") {

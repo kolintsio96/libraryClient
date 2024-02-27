@@ -2,18 +2,20 @@
 import API from "@/services/api";
 import { ref } from "vue";
 import router from "@/router";
-const email = ref("newReader@gmail.com");
-const password = ref("111");
+const email = ref("");
+const password = ref("");
+const isReader = ref(false);
 const api = new API();
 const onLogin = () => {
   api
     .post("api/Account/login", {
       Password: password.value,
       Email: email.value,
+      isReader: isReader.value,
     })
     .then(({ data }) => {
-      localStorage.setItem("libraryAccount", JSON.stringify(data.reader));
-      console.log(router);
+      localStorage.setItem("libraryAccount", JSON.stringify(data.account));
+      localStorage.setItem("token", JSON.stringify(data.token));
       router.push({ name: "home" });
     })
     .catch((error) => {
@@ -43,6 +45,18 @@ const onLogin = () => {
         id="form2Example2"
         class="form-control"
       />
+    </div>
+
+    <div class="form-outline mb-4 form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        v-model="isReader"
+        id="flexCheckChecked"
+      />
+      <label class="form-check-label" for="flexCheckChecked">
+        I am reader
+      </label>
     </div>
 
     <!-- Submit button -->
